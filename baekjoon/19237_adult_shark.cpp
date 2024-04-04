@@ -4,15 +4,6 @@
 
 using namespace std;
 
-int result = 0;
-int shark_count;
-int smell_time;
-int map_size;
-
-vector<int> map;
-vector<int> smell_map;
-vector<Shark> shark_vec;
-
 class Shark {
 public:
 	int priority[4][4];
@@ -57,6 +48,15 @@ public:
 	// }
 };
 
+int result = 0;
+int shark_count;
+int smell_time;
+int map_size;
+
+int map[20][20];
+int smell_map[20][20];
+Shark sharkArr[401];
+
 void bfs() {
 }
 
@@ -66,9 +66,9 @@ int main() {
 
 	cin >> N >> M >> k;
 
-	int map[N][N];
-	int smell_map[N][N];
-	Shark sharkArr[M+1];
+	// int map[N][N];
+	// int smell_map[N][N];
+	// Shark sharkArr[M+1];
 
 	shark_count = M;
 	smell_time = k;
@@ -99,8 +99,15 @@ int main() {
 		sharkArr[i+1].setPriority(p);
 	}
 
-	// for (int i = 1; i <= M; i++) {
-	// 	sharkArr[i].toString();
+	for (int i = 1; i <= M; i++) {
+		sharkArr[i].toString();
+	}
+
+	// for (int i = 0; i < N; ++i) {
+	// 	for (int j = 0; j < N; ++j) {
+	// 		cout << map[i][j];
+	// 	}
+	// 	cout << endl;
 	// }
 
 
