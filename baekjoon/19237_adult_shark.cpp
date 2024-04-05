@@ -34,6 +34,12 @@ public:
 		smell.push(make_pair(x,y));
 	}
 
+	void setNew(int x, int y, int d) {
+		this->x = x;
+		this->y = y;
+		this->dir = d;
+	}
+
 	void toString() {
 		cout << "number : " << number << ", (" << x << ", " << y << ")" << endl;
 		for (int i = 0; i < 4; ++i) {
@@ -78,18 +84,35 @@ bool isSmell(int x, int y, int sharkNumber) {
 void bfs() {
 	// 상어 이동하기(현재 dir 보고 priority에 접근 -> dir_x[prioirty+1] -> 가능/불가능)
 	int new_x = -1, new_y = -1, new_dir = -1;
+	int flag_mysmell;
 
 	for(int i = 1; i <= shark_count; ++i) {
 		if (!sharkArr[i].live) continue;
 
+		flag_mysmell = 0;
+		// 상어 이동할 위치 정하기
 		for (int j = 0; j < 4; ++j) {
-			new_x = sharkArr[i].x + dir_x[sharkArr[i].priority[sharkArr[i].dir-1][j]-1];
-			new_y = sharkArr[i].y + dir_y[sharkArr[i].priority[sharkArr[i].dir-1][j]-1];
-			if (isValid(new_x, new_y)) {
-				cout << sharkArr[i].number <<  " : (" << new_x << ", " << new_y << ")" << endl;
+			new_dir = sharkArr[i].priority[sharkArr[i].dir-1][j]-1;
+			new_x = sharkArr[i].x + dir_x[new_dir];
+			new_y = sharkArr[i].y + dir_y[new_dir];
+
+			if (!isValid(new_x, new_y)) continue;
+			if (smell_map[new_y][new_x] > 0 && smell_map[new_y][new_x] != sharkArr[i].number) continue;
+			if (smell_map[new_y][new_x] == sharkArr[i].number && flag_mysmell == 0) {
+				sharkArr[i].setNew(new_x, new_y, new_dir);
+				flag_mysmell = 1;
+				continue;
+			}
+			if (smell_map[new_y][new_x] == 0) {
+				sharkArr[i].setNew(new_x, new_y, new_dir);
 				break;
 			}
 		}
+
+		for (int i = 1; i <= shark_count; ++i) {
+			// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
+		}
+		
 	}
 }
 
