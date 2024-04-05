@@ -144,10 +144,10 @@ void bfs() {
 		map[sharkArr[i].now_y][sharkArr[i].now_x] = 0;
 		// cout << "now : " << sharkArr[i].now_x << ", " << sharkArr[i].now_y << endl; // 이렇게 값에는 접근이 됨
 		// cout << "next : " << sharkArr[i].next_x << ", " << sharkArr[i].next_y << endl;
-		sharkArr[i].setSmell(); // 여기서 세그폴트 => next 계산이 잘못됨 => next를 now로 덮어씌우는 작업이 없어서
+		
 		if (map[sharkArr[i].next_y][sharkArr[i].next_x] == 0) {
 			map[sharkArr[i].next_y][sharkArr[i].next_x] = sharkArr[i].number;
-			
+			sharkArr[i].setSmell(); // 여기서 세그폴트 => next 계산이 잘못됨 => next를 now로 덮어씌우는 작업이 없어서
 			// 이 두개가 왜 세그폴트? => 아. now를 덮어 씌웠을 때 map에 접근하는 과정에서 세그폴트 나는 듯. 그니까 setNow에는 문제가 없을 것 같은데
 			sharkArr[i].setNow();
 		} else {
@@ -155,7 +155,6 @@ void bfs() {
 			shark_count--;
 		}
 	}
-	cout << endl << endl << endl;
 }
 
 int main() {
@@ -211,6 +210,14 @@ int main() {
 	while (shark_count > 1 && result < 1000) {
 		bfs();
 		result++;
+
+		for (int i = 0; i < N; ++i) {
+			for (int j = 0; j < N; ++j) {
+				cout << smell_map[i][j];
+			}
+			cout << endl;
+		}
+		cout << endl << endl << endl;
 	}
 
 	if (result >= 1000) result = -1;
