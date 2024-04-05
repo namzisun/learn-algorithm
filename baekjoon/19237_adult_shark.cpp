@@ -12,13 +12,14 @@ public:
 	int priority[4][4];
 	int number;
 	int dir;
-	int x,y;
+	int now_x, now_y;
+	int next_x, next_y;
 	bool live;
 
 	queue<pair<int,int>> smell;
 
 	Shark() {}
-	Shark(int n, int x, int y) : number(n), x(x), y(y), live(true) {
+	Shark(int n, int x, int y) : number(n), now_x(x), now_y(y), live(true) {
 		smell.push(make_pair(x,y));
 	}
 
@@ -32,34 +33,34 @@ public:
 		}
 	}
 
-	void setSmell(int x, int y) {
+	void setSmell() {
 		if (smell.size() > 4) {
 			smell_map[smell.front().second][smell.front().first] = 0;
 			smell.pop();
 		}
-		smell.push(make_pair(x,y));
-		smell_map[y][x] = this->number;
+		smell.push(make_pair(next_x, next_y));
+		smell_map[next_y][next_x] = number;
 	}
 
 	void setNew(int x, int y, int d) {
-		this->x = x;
-		this->y = y;
+		this->next_x = x;
+		this->next_y = y;
 		this->dir = d;
 	}
 
-	void toString() {
-		cout << "number : " << number << ", (" << x << ", " << y << ")" << endl;
-		for (int i = 0; i < 4; ++i) {
-			for (int j = 0; j < 4; ++j) {
-				cout << priority[i][j] << " ";
-			}
-			cout << endl;
-		}
+	// void toString() {
+	// 	cout << "number : " << number << ", (" << now_x << ", " << now_y << ")" << endl;
+	// 	for (int i = 0; i < 4; ++i) {
+	// 		for (int j = 0; j < 4; ++j) {
+	// 			cout << priority[i][j] << " ";
+	// 		}
+	// 		cout << endl;
+	// 	}
 
-		for (int i = 0; i < smell.size(); ++i) {
-			cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
-		}
-	}
+	// 	for (int i = 0; i < smell.size(); ++i) {
+	// 		cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
+	// 	}
+	// }
 };
 
 int result = 0;
@@ -79,13 +80,13 @@ bool isValid(int x, int y) {
 	return true;
 }
 
-bool isSmell(int x, int y, int sharkNumber) {
-	if (map[y][x] == 0 
-		&& smell_map[y][x] != sharkNumber 
-		&& smell_map[y][x] > 0) 
-		return false;
-	return true;
-}
+// bool isSmell(int x, int y, int sharkNumber) {
+// 	if (map[y][x] == 0 
+// 		&& smell_map[y][x] != sharkNumber 
+// 		&& smell_map[y][x] > 0) 
+// 		return false;
+// 	return true;
+// }
 
 void bfs() {
 	// 상어 이동하기(현재 dir 보고 priority에 접근 -> dir_x[prioirty+1] -> 가능/불가능)
@@ -99,8 +100,8 @@ void bfs() {
 		// 상어 이동할 위치 정하기
 		for (int j = 0; j < 4; ++j) {
 			new_dir = sharkArr[i].priority[sharkArr[i].dir-1][j]-1;
-			new_x = sharkArr[i].x + dir_x[new_dir];
-			new_y = sharkArr[i].y + dir_y[new_dir];
+			new_x = sharkArr[i].now_x + dir_x[new_dir];
+			new_y = sharkArr[i].now_y + dir_y[new_dir];
 
 			if (!isValid(new_x, new_y)) continue;
 			if (smell_map[new_y][new_x] > 0 && smell_map[new_y][new_x] != sharkArr[i].number) continue;
@@ -116,11 +117,20 @@ void bfs() {
 		}
 
 		for (int i = 1; i <= shark_count; ++i) {
-
+			if (!sharkArr[i].live) continue;
 			// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
+			map[sharkArr[i].now_y][sharkArr[i].now_x] = 0;
+			sharkArr[i].setSmell();
+			if (map[sharkArr[i].next_y][sharkArr[i].next_x] == 0) {
+				map[sharkArr[i].next_y][sharkArr[i].next_x] = sharkArr[i].number;
+			} else {
+				sharkArr[i].live = false;
+				shark_count--;
+			}
 		}
 		
 	}
+	result++;
 }
 
 int main() {
@@ -162,9 +172,9 @@ int main() {
 		sharkArr[i+1].setPriority(p);
 	}
 
-	for (int i = 1; i <= M; i++) {
-		sharkArr[i].toString();
-	}
+	// for (int i = 1; i <= M; i++) {
+	// 	sharkArr[i].toString();
+	// }
 
 	// for (int i = 0; i < N; ++i) {
 	// 	for (int j = 0; j < N; ++j) {
@@ -173,10 +183,9 @@ int main() {
 	// 	cout << endl;
 	// }
 
-	bfs();
-	// while (shark_count > 1 && result < 1000) {
-
-	// }
+	while (shark_count > 1 && result < 1000) {
+		bfs();
+	}
 
 	if (result >= 1000) result = -1;
 
