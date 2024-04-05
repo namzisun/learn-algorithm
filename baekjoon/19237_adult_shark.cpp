@@ -7,6 +7,11 @@ using namespace std;
 int map[20][20];
 int smell_map[20][20];
 
+int result = 0;
+int shark_count;
+int smell_time;
+int map_size;
+
 class Shark {
 public:
 	int priority[4][4];
@@ -34,11 +39,13 @@ public:
 	}
 
 	void setSmell() {
-		if (smell.size() > 4) {
+		if (smell.size() >= smell_time) {
+			// cout << smell.front().first << ", " << smell.front().second << endl;
 			smell_map[smell.front().second][smell.front().first] = 0;
 			smell.pop();
 		}
 		smell.push(make_pair(next_x, next_y));
+		// cout << "next : " << next_x << ", " << next_y << endl;
 		smell_map[next_y][next_x] = number;
 	}
 
@@ -48,6 +55,11 @@ public:
 		this->dir = d;
 	}
 
+	void setNow() {
+		// 왜 여기서 세그폴트가 나지?????????????????
+		now_x = next_x;
+		now_y = next_y;
+	}
 	// void toString() {
 	// 	cout << "number : " << number << ", (" << now_x << ", " << now_y << ")" << endl;
 	// 	for (int i = 0; i < 4; ++i) {
@@ -63,10 +75,7 @@ public:
 	// }
 };
 
-int result = 0;
-int shark_count;
-int smell_time;
-int map_size;
+
 
 
 Shark sharkArr[401];
@@ -75,8 +84,8 @@ int dir_x[4] = {0, 0, -1, 1};
 int dir_y[4] = {-1, 1, 0, 0};
 
 bool isValid(int x, int y) {
-	if (x < 0 || x > map_size) return false;
-	if (y < 0 || y > map_size) return false;
+	if (x < 0 || x >= map_size) return false;
+	if (y < 0 || y >= map_size) return false;
 	return true;
 }
 
@@ -98,6 +107,7 @@ void bfs() {
 
 		flag_mysmell = 0;
 		// 상어 이동할 위치 정하기
+		// next 계산하는게 잘못됨. 두번째 사이클부터 바로 틀린다. dir 때문인가?
 		for (int j = 0; j < 4; ++j) {
 			new_dir = sharkArr[i].priority[sharkArr[i].dir-1][j]-1;
 			new_x = sharkArr[i].now_x + dir_x[new_dir];
@@ -115,22 +125,29 @@ void bfs() {
 				break;
 			}
 		}
-
-		for (int i = 1; i <= shark_count; ++i) {
-			if (!sharkArr[i].live) continue;
-			// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
-			map[sharkArr[i].now_y][sharkArr[i].now_x] = 0;
-			sharkArr[i].setSmell();
-			if (map[sharkArr[i].next_y][sharkArr[i].next_x] == 0) {
-				map[sharkArr[i].next_y][sharkArr[i].next_x] = sharkArr[i].number;
-			} else {
-				sharkArr[i].live = false;
-				shark_count--;
-			}
-		}
-		
 	}
-	result++;
+
+	// for (int i = 1; i <= shark_count; ++i) {
+	// 	cout << sharkArr[i].number << " : (" << sharkArr[i].next_x << ", " << sharkArr[i].next_y << "), dir : " << sharkArr[i].dir << endl; 
+	// }
+
+	// cout << "-----------------------------------" << endl;
+
+	for (int i = 1; i <= shark_count; ++i) {
+		if (!sharkArr[i].live) continue;
+		// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
+		map[sharkArr[i].now_y][sharkArr[i].now_x] = 0;
+		sharkArr[i].setSmell(); // 여기서 세그폴트 => next 계산이 잘못됨 => next를 now로 덮어씌우는 작업이 없어서
+		if (map[sharkArr[i].next_y][sharkArr[i].next_x] == 0) {
+			map[sharkArr[i].next_y][sharkArr[i].next_x] = sharkArr[i].number;
+			
+			// 이 두개가 왜 세그폴트?
+			// sharkArr[i].setNow();
+		} else {
+			sharkArr[i].live = false;
+			shark_count--;
+		}
+	}
 }
 
 int main() {
@@ -185,6 +202,7 @@ int main() {
 
 	while (shark_count > 1 && result < 1000) {
 		bfs();
+		result++;
 	}
 
 	if (result >= 1000) result = -1;
