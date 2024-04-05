@@ -40,13 +40,14 @@ public:
 
 	void setSmell() {
 		if (smell.size() >= smell_time) {
-			// cout << smell.front().first << ", " << smell.front().second << endl;
+			// cout << "set smell : " << smell.front().first << ", " << smell.front().second << endl;
 			smell_map[smell.front().second][smell.front().first] = 0;
 			smell.pop();
 		}
 		smell.push(make_pair(next_x, next_y));
 		// cout << "next : " << next_x << ", " << next_y << endl;
 		smell_map[next_y][next_x] = number;
+		cout << "set smell : (" << next_x << ", " << next_y << ") " <<  smell_map[next_y][next_x] <<endl;
 	}
 
 	void setNew(int x, int y, int d) {
@@ -109,15 +110,21 @@ void bfs() {
 		// 상어 이동할 위치 정하기
 		// next 계산하는게 잘못됨. 두번째 사이클부터 바로 틀린다. dir 때문인가?
 		for (int j = 0; j < 4; ++j) {
-			new_dir = sharkArr[i].priority[sharkArr[i].dir-1][j]-1;
-			new_x = sharkArr[i].now_x + dir_x[new_dir];
-			new_y = sharkArr[i].now_y + dir_y[new_dir];
-
-			if (!isValid(new_x, new_y)) continue;
-			if (smell_map[new_y][new_x] > 0 && smell_map[new_y][new_x] != sharkArr[i].number) continue;
+			new_dir = sharkArr[i].priority[sharkArr[i].dir-1][j];
+			new_x = sharkArr[i].now_x + dir_x[new_dir-1];
+			new_y = sharkArr[i].now_y + dir_y[new_dir-1];
+			cout << sharkArr[i].number  << ": " << new_x<< ", " << new_y << endl;
+			
+			if (!isValid(new_x, new_y)){ 
+				cout << "aaaaaaaaa" << endl;
+				continue;}
+			if (smell_map[new_y][new_x] > 0 && smell_map[new_y][new_x] != sharkArr[i].number) {
+				cout << "smell : " << smell_map[new_y][new_x] << ", number : " << sharkArr[i].number << endl;
+				cout << "bbbbbbbbbb" << endl; continue;} // 왜 여기서 탈출하지????
 			if (smell_map[new_y][new_x] == sharkArr[i].number && flag_mysmell == 0) {
 				sharkArr[i].setNew(new_x, new_y, new_dir);
 				flag_mysmell = 1;
+				cout << "here" << endl;
 				continue;
 			}
 			if (smell_map[new_y][new_x] == 0) {
@@ -127,27 +134,28 @@ void bfs() {
 		}
 	}
 
-	// for (int i = 1; i <= shark_count; ++i) {
-	// 	cout << sharkArr[i].number << " : (" << sharkArr[i].next_x << ", " << sharkArr[i].next_y << "), dir : " << sharkArr[i].dir << endl; 
-	// }
-
-	// cout << "-----------------------------------" << endl;
+	for (int i = 1; i <= shark_count; ++i) {
+		cout << sharkArr[i].number << " : (" << sharkArr[i].next_x << ", " << sharkArr[i].next_y << "), dir : " << sharkArr[i].dir << endl; 
+	}
 
 	for (int i = 1; i <= shark_count; ++i) {
 		if (!sharkArr[i].live) continue;
 		// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
 		map[sharkArr[i].now_y][sharkArr[i].now_x] = 0;
+		// cout << "now : " << sharkArr[i].now_x << ", " << sharkArr[i].now_y << endl; // 이렇게 값에는 접근이 됨
+		// cout << "next : " << sharkArr[i].next_x << ", " << sharkArr[i].next_y << endl;
 		sharkArr[i].setSmell(); // 여기서 세그폴트 => next 계산이 잘못됨 => next를 now로 덮어씌우는 작업이 없어서
 		if (map[sharkArr[i].next_y][sharkArr[i].next_x] == 0) {
 			map[sharkArr[i].next_y][sharkArr[i].next_x] = sharkArr[i].number;
 			
-			// 이 두개가 왜 세그폴트?
-			// sharkArr[i].setNow();
+			// 이 두개가 왜 세그폴트? => 아. now를 덮어 씌웠을 때 map에 접근하는 과정에서 세그폴트 나는 듯. 그니까 setNow에는 문제가 없을 것 같은데
+			sharkArr[i].setNow();
 		} else {
 			sharkArr[i].live = false;
 			shark_count--;
 		}
 	}
+	cout << endl << endl << endl;
 }
 
 int main() {
