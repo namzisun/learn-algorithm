@@ -10,11 +10,12 @@ public:
 	int number;
 	int dir;
 	int x,y;
+	bool live;
 
 	queue<pair<int,int>> smell;
 
 	Shark() {}
-	Shark(int n, int x, int y) : number(n), x(x), y(y) {
+	Shark(int n, int x, int y) : number(n), x(x), y(y), live(true) {
 		smell.push(make_pair(x,y));
 	}
 
@@ -33,19 +34,19 @@ public:
 		smell.push(make_pair(x,y));
 	}
 
-	// void toString() {
-	// 	cout << "number : " << number << ", (" << x << ", " << y << ")" << endl;
-	// 	for (int i = 0; i < 4; ++i) {
-	// 		for (int j = 0; j < 4; ++j) {
-	// 			cout << priority[i][j] << " ";
-	// 		}
-	// 		cout << endl;
-	// 	}
+	void toString() {
+		cout << "number : " << number << ", (" << x << ", " << y << ")" << endl;
+		for (int i = 0; i < 4; ++i) {
+			for (int j = 0; j < 4; ++j) {
+				cout << priority[i][j] << " ";
+			}
+			cout << endl;
+		}
 
-	// 	for (int i = 0; i < smell.size(); ++i) {
-	// 		cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
-	// 	}
-	// }
+		for (int i = 0; i < smell.size(); ++i) {
+			cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
+		}
+	}
 };
 
 int result = 0;
@@ -57,7 +58,39 @@ int map[20][20];
 int smell_map[20][20];
 Shark sharkArr[401];
 
+int dir_x[4] = {0, 0, -1, 1};
+int dir_y[4] = {-1, 1, 0, 0};
+
+bool isValid(int x, int y) {
+	if (x < 0 || x > map_size) return false;
+	if (y < 0 || y > map_size) return false;
+	return true;
+}
+
+bool isSmell(int x, int y, int sharkNumber) {
+	if (map[y][x] == 0 
+		&& smell_map[y][x] != sharkNumber 
+		&& smell_map[y][x] > 0) 
+		return false;
+	return true;
+}
+
 void bfs() {
+	// 상어 이동하기(현재 dir 보고 priority에 접근 -> dir_x[prioirty+1] -> 가능/불가능)
+	int new_x = -1, new_y = -1, new_dir = -1;
+
+	for(int i = 1; i <= shark_count; ++i) {
+		if (!sharkArr[i].live) continue;
+
+		for (int j = 0; j < 4; ++j) {
+			new_x = sharkArr[i].x + dir_x[sharkArr[i].priority[sharkArr[i].dir-1][j]-1];
+			new_y = sharkArr[i].y + dir_y[sharkArr[i].priority[sharkArr[i].dir-1][j]-1];
+			if (isValid(new_x, new_y)) {
+				cout << sharkArr[i].number <<  " : (" << new_x << ", " << new_y << ")" << endl;
+				break;
+			}
+		}
+	}
 }
 
 int main() {
@@ -110,7 +143,7 @@ int main() {
 	// 	cout << endl;
 	// }
 
-
+	bfs();
 	// while (shark_count > 1 && result < 1000) {
 
 	// }
