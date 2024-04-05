@@ -1,8 +1,11 @@
 #include <iostream>
 #include <queue>
-#include <vector>
+#include <utility>
 
 using namespace std;
+
+int map[20][20];
+int smell_map[20][20];
 
 class Shark {
 public:
@@ -30,8 +33,12 @@ public:
 	}
 
 	void setSmell(int x, int y) {
-		if (smell.size() > 4) smell.pop();
+		if (smell.size() > 4) {
+			smell_map[smell.front().second][smell.front().first] = 0;
+			smell.pop();
+		}
 		smell.push(make_pair(x,y));
+		smell_map[y][x] = this->number;
 	}
 
 	void setNew(int x, int y, int d) {
@@ -60,8 +67,7 @@ int shark_count;
 int smell_time;
 int map_size;
 
-int map[20][20];
-int smell_map[20][20];
+
 Shark sharkArr[401];
 
 int dir_x[4] = {0, 0, -1, 1};
@@ -110,6 +116,7 @@ void bfs() {
 		}
 
 		for (int i = 1; i <= shark_count; ++i) {
+
 			// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
 		}
 		
