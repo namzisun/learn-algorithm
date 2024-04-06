@@ -19,7 +19,7 @@ public:
 	int number;
 	int dir;
 	int now_x, now_y;
-	int next_x, next_y;
+	int next_x, next_y, next_dir;
 	bool live;
 
 	queue<pair<int,int>> smell;
@@ -49,7 +49,7 @@ public:
 			smell.push(make_pair(next_x, next_y));
 			// cout << "next : " << next_x << ", " << next_y << endl;
 			smell_map[next_y][next_x] = number;
-			cout << "set smell : (" << next_x << ", " << next_y << ") " <<  smell_map[next_y][next_x] <<endl;
+			cout << "set smell : (" << next_x << ", " << next_y << ") " <<  smell_map[next_y][next_x] << ", dir : " << dir <<endl;
 		} else {
 			cout << "ㅇㅙ 이이거  안돼녀교" << endl;
 			if (smell.size() >= smell_time) {
@@ -70,27 +70,31 @@ public:
 	void setNew(int x, int y, int d) {
 		this->next_x = x;
 		this->next_y = y;
-		this->dir = d;
+		this->next_dir = d;
 	}
 
 	void setNow() {
 		// 왜 여기서 세그폴트가 나지?????????????????
 		now_x = next_x;
 		now_y = next_y;
+		dir = next_dir;
 	}
-	// void toString() {
-	// 	cout << "number : " << number << ", (" << now_x << ", " << now_y << ")" << endl;
-	// 	for (int i = 0; i < 4; ++i) {
-	// 		for (int j = 0; j < 4; ++j) {
-	// 			cout << priority[i][j] << " ";
-	// 		}
-	// 		cout << endl;
-	// 	}
+	void toString() {
+		cout << "**************************************" << endl;
+		cout << "number : " << number << ", (" << now_x << ", " << now_y << ")" << endl;
+		for (int i = 0; i < 4; ++i) {
+			for (int j = 0; j < 4; ++j) {
+				cout << priority[i][j] << " ";
+			}
+			cout << endl;
+		}
 
-	// 	for (int i = 0; i < smell.size(); ++i) {
-	// 		cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
-	// 	}
-	// }
+		for (int i = 0; i < smell.size(); ++i) {
+			cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
+		}
+		cout << "**************************************" << endl;
+
+	}
 };
 
 
@@ -130,7 +134,7 @@ void bfs() {
 			new_dir = sharkArr[i].priority[sharkArr[i].dir-1][j];
 			new_x = sharkArr[i].now_x + dir_x[new_dir-1];
 			new_y = sharkArr[i].now_y + dir_y[new_dir-1];
-			cout << sharkArr[i].number  << ": " << new_x<< ", " << new_y << endl;
+			cout << sharkArr[i].number  << ": (" << new_x<< ", " << new_y << ") , dir : " << new_dir << endl;
 			
 			if (!isValid(new_x, new_y)){ 
 				cout << "aaaaaaaaa" << endl;
@@ -139,7 +143,7 @@ void bfs() {
 				cout << "smell : " << smell_map[new_y][new_x] << ", number : " << sharkArr[i].number << endl;
 				cout << "bbbbbbbbbb" << endl; continue;} // 왜 여기서 탈출하지????
 			if (smell_map[new_y][new_x] == sharkArr[i].number && flag_mysmell == 0) {
-				sharkArr[i].setNew(new_x, new_y, new_dir);
+				sharkArr[i].setNew(new_x, new_y, new_dir);	// new_dir을 여기서 덮어 씌우는게 문제구나!!!
 				flag_mysmell = 1;
 				cout << "here" << endl;
 				continue;
