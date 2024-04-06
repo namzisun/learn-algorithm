@@ -1,0 +1,783 @@
+1: 1, 2
+2: 2, 1
+3: 4, -1
+aaaaaaaaa
+3: 3, 0
+4: 3, 2
+1 : (1, 2), dir : 4
+2 : (2, 1), dir : 4
+3 : (3, 0), dir : 3
+4 : (3, 2), dir : 3
+set smell : (1, 2) 1
+set smell : (2, 1) 2
+set smell : (3, 0) 3
+set smell : (3, 2) 4
+00033
+02200
+11044
+00000
+00000
+
+
+
+1: 2, 2
+2: 3, 1
+3: 3, -1
+aaaaaaaaa
+3: 2, 0
+4: 3, 1
+1 : (2, 2), dir : 4
+2 : (3, 1), dir : 4
+3 : (2, 0), dir : 3
+4 : (3, 1), dir : 1
+set smell : (2, 2) 1
+set smell : (3, 1) 2
+set smell : (2, 0) 3
+오잉
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00333
+02220
+11144
+00000
+00000
+
+
+
+1: 3, 2
+smell : 4, number : 1
+bbbbbbbbbb
+1: 1, 2
+here
+1: 2, 3
+2: 4, 1
+3: 2, -1
+aaaaaaaaa
+3: 1, 0
+1 : (2, 3), dir : 2
+2 : (4, 1), dir : 4
+3 : (1, 0), dir : 3
+4 : (3, 1), dir : 1
+set smell : (2, 3) 1
+set smell : (4, 1) 2
+set smell : (1, 0) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+03333
+02222
+11144
+00100
+00000
+
+
+
+1: 3, 3
+2: 5, 1
+aaaaaaaaa
+2: 4, 0
+smell : 3, number : 2
+bbbbbbbbbb
+2: 4, 2
+smell : 4, number : 2
+bbbbbbbbbb
+2: 3, 1
+here
+3: 1, -1
+aaaaaaaaa
+3: 0, 0
+1 : (3, 3), dir : 4
+2 : (3, 1), dir : 3
+3 : (0, 0), dir : 3
+4 : (3, 1), dir : 1
+set smell : (3, 3) 1
+set smell : (3, 1) 2
+set smell : (0, 0) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+33330
+00222
+01140
+00110
+00000
+
+
+
+1: 4, 3
+2: 2, 1
+here
+2: 4, 1
+2: 3, 0
+smell : 3, number : 2
+bbbbbbbbbb
+2: 3, 2
+smell : 4, number : 2
+bbbbbbbbbb
+3: 0, -1
+aaaaaaaaa
+3: -1, 0
+aaaaaaaaa
+3: 0, 1
+1 : (4, 3), dir : 4
+2 : (2, 1), dir : 3
+3 : (0, 1), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 3) 1
+set smell : (2, 1) 2
+set smell : (0, 1) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+33300
+30222
+00100
+00111
+00000
+
+
+
+1: 5, 3
+aaaaaaaaa
+1: 3, 3
+here
+1: 4, 4
+2: 1, 1
+3: 0, 0
+here
+3: -1, 1
+aaaaaaaaa
+3: 0, 2
+1 : (4, 4), dir : 2
+2 : (1, 1), dir : 3
+3 : (0, 2), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 4) 1
+set smell : (1, 1) 2
+set smell : (0, 2) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+33000
+32202
+30000
+00111
+00001
+
+
+
+1: 5, 4
+aaaaaaaaa
+1: 4, 3
+here
+1: 4, 3
+1: 5, 4
+aaaaaaaaa
+2: 0, 1
+smell : 3, number : 2
+bbbbbbbbbb
+2: 2, 1
+here
+2: 1, 2
+3: 0, 1
+here
+3: -1, 2
+aaaaaaaaa
+3: 0, 3
+1 : (4, 3), dir : 1
+2 : (1, 2), dir : 2
+3 : (0, 3), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 3) 1
+set smell : (1, 2) 2
+set smell : (0, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+30000
+32200
+32000
+30011
+00001
+
+
+
+1: 4, 4
+here
+1: 4, 2
+2: 1, 3
+3: 0, 2
+here
+3: -1, 3
+aaaaaaaaa
+3: 0, 4
+1 : (4, 2), dir : 1
+2 : (1, 3), dir : 2
+3 : (0, 4), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 2) 1
+set smell : (1, 3) 2
+set smell : (0, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00000
+32200
+32001
+32001
+30001
+
+
+
+1: 4, 3
+here
+1: 4, 1
+2: 1, 4
+3: 0, 3
+here
+3: -1, 4
+aaaaaaaaa
+3: 0, 5
+aaaaaaaaa
+3: 0, 3
+1 : (4, 1), dir : 1
+2 : (1, 4), dir : 2
+3 : (0, 3), dir : 1
+4 : (3, 1), dir : 1
+set smell : (4, 1) 1
+set smell : (1, 4) 2
+set smell : (0, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00000
+02001
+32001
+32000
+32001
+
+
+
+1: 4, 2
+here
+1: 4, 0
+2: 1, 5
+aaaaaaaaa
+2: 1, 3
+here
+2: 0, 4
+smell : 3, number : 2
+bbbbbbbbbb
+2: 1, 3
+3: 1, 3
+smell : 2, number : 3
+bbbbbbbbbb
+3: -1, 3
+aaaaaaaaa
+3: 0, 4
+here
+3: 0, 4
+1 : (4, 0), dir : 1
+2 : (1, 3), dir : 1
+3 : (0, 4), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 0) 1
+set smell : (1, 3) 2
+set smell : (0, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00001
+00001
+02001
+32000
+32000
+
+
+
+1: 4, 1
+here
+1: 4, -1
+aaaaaaaaa
+1: 4, 1
+1: 3, 0
+2: 1, 4
+here
+2: 1, 2
+2: 0, 3
+smell : 3, number : 2
+bbbbbbbbbb
+2: 2, 3
+3: 0, 3
+here
+3: -1, 4
+aaaaaaaaa
+3: 0, 5
+aaaaaaaaa
+3: 0, 3
+1 : (3, 0), dir : 3
+2 : (2, 3), dir : 4
+3 : (0, 3), dir : 1
+4 : (3, 1), dir : 1
+set smell : (3, 0) 1
+set smell : (2, 3) 2
+set smell : (0, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00011
+00001
+00001
+32200
+32000
+
+
+
+1: 2, 0
+2: 3, 3
+3: 1, 3
+smell : 2, number : 3
+bbbbbbbbbb
+3: -1, 3
+aaaaaaaaa
+3: 0, 4
+here
+3: 0, 4
+1 : (2, 0), dir : 3
+2 : (3, 3), dir : 4
+3 : (0, 4), dir : 2
+4 : (3, 1), dir : 1
+set smell : (2, 0) 1
+set smell : (3, 3) 2
+set smell : (0, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00111
+00001
+00000
+30220
+32000
+
+
+
+1: 1, 0
+2: 4, 3
+3: 0, 3
+here
+3: -1, 4
+aaaaaaaaa
+3: 0, 5
+aaaaaaaaa
+3: 0, 3
+1 : (1, 0), dir : 3
+2 : (4, 3), dir : 4
+3 : (0, 3), dir : 1
+4 : (3, 1), dir : 1
+set smell : (1, 0) 1
+set smell : (4, 3) 2
+set smell : (0, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+01111
+00000
+00000
+30222
+30000
+
+
+
+1: 0, 0
+2: 5, 3
+aaaaaaaaa
+2: 4, 2
+3: 1, 3
+1 : (0, 0), dir : 3
+2 : (4, 2), dir : 1
+3 : (1, 3), dir : 4
+4 : (3, 1), dir : 1
+set smell : (0, 0) 1
+set smell : (4, 2) 2
+set smell : (1, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+11110
+00000
+00002
+33222
+00000
+
+
+
+1: -1, 0
+aaaaaaaaa
+1: 1, 0
+here
+1: 0, -1
+aaaaaaaaa
+1: 0, 1
+2: 4, 3
+here
+2: 4, 1
+3: 0, 3
+here
+3: 0, 3
+3: 1, 4
+1 : (0, 1), dir : 2
+2 : (4, 1), dir : 1
+3 : (1, 4), dir : 2
+4 : (3, 1), dir : 1
+set smell : (0, 1) 1
+set smell : (4, 1) 2
+set smell : (1, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+11100
+10002
+00002
+03022
+03000
+
+
+
+1: 1, 1
+2: 4, 2
+here
+2: 4, 0
+3: 1, 3
+here
+3: 0, 4
+1 : (1, 1), dir : 4
+2 : (4, 0), dir : 1
+3 : (0, 4), dir : 3
+4 : (3, 1), dir : 1
+set smell : (1, 1) 1
+set smell : (4, 0) 2
+set smell : (0, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+11002
+11002
+00002
+03002
+33000
+
+
+
+1: 2, 1
+2: 4, 1
+here
+2: 4, -1
+aaaaaaaaa
+2: 3, 0
+3: 0, 3
+1 : (2, 1), dir : 4
+2 : (3, 0), dir : 3
+3 : (0, 3), dir : 1
+4 : (3, 1), dir : 1
+set smell : (2, 1) 1
+set smell : (3, 0) 2
+set smell : (0, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+10022
+11102
+00002
+33000
+33000
+
+
+
+1: 3, 1
+2: 2, 0
+3: 1, 3
+here
+3: 0, 4
+3: 0, 2
+1 : (3, 1), dir : 4
+2 : (2, 0), dir : 3
+3 : (0, 2), dir : 1
+4 : (3, 1), dir : 1
+set smell : (3, 1) 1
+set smell : (2, 0) 2
+set smell : (0, 2) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00222
+11112
+30000
+30000
+33000
+
+
+
+1: 4, 1
+smell : 2, number : 1
+bbbbbbbbbb
+1: 2, 1
+here
+1: 3, 2
+2: 1, 0
+3: 1, 2
+1 : (3, 2), dir : 2
+2 : (1, 0), dir : 3
+3 : (1, 2), dir : 4
+4 : (3, 1), dir : 1
+set smell : (3, 2) 1
+set smell : (1, 0) 2
+set smell : (1, 2) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+02222
+01110
+33010
+30000
+30000
+
+
+
+1: 4, 2
+2: 0, 0
+3: 0, 2
+here
+3: 0, 2
+3: 1, 3
+1 : (4, 2), dir : 4
+2 : (0, 0), dir : 3
+3 : (1, 3), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 2) 1
+set smell : (0, 0) 2
+set smell : (1, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+22220
+00110
+33011
+33000
+00000
+
+
+
+1: 5, 2
+aaaaaaaaa
+1: 3, 2
+here
+1: 4, 3
+2: -1, 0
+aaaaaaaaa
+2: 1, 0
+here
+2: 0, 1
+3: 1, 2
+here
+3: 0, 3
+3: 1, 4
+1 : (4, 3), dir : 2
+2 : (0, 1), dir : 2
+3 : (1, 4), dir : 2
+4 : (3, 1), dir : 1
+set smell : (4, 3) 1
+set smell : (0, 1) 2
+set smell : (1, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+22200
+20010
+33011
+03001
+03000
+
+
+
+1: 5, 3
+aaaaaaaaa
+1: 4, 2
+here
+1: 4, 2
+1: 5, 3
+aaaaaaaaa
+2: 0, 2
+smell : 3, number : 2
+bbbbbbbbbb
+2: 0, 0
+here
+2: -1, 1
+aaaaaaaaa
+2: 0, 0
+3: 1, 3
+here
+3: 0, 4
+1 : (4, 2), dir : 1
+2 : (0, 0), dir : 1
+3 : (0, 4), dir : 3
+4 : (3, 1), dir : 1
+set smell : (4, 2) 1
+set smell : (0, 0) 2
+set smell : (0, 4) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+22000
+20000
+03011
+03001
+33000
+
+
+
+1: 4, 3
+here
+1: 4, 1
+2: 0, 1
+here
+2: 0, -1
+aaaaaaaaa
+2: -1, 0
+aaaaaaaaa
+2: 1, 0
+3: 0, 3
+1 : (4, 1), dir : 1
+2 : (0, 1), dir : 2
+3 : (0, 3), dir : 1
+4 : (3, 1), dir : 1
+set smell : (4, 1) 1
+set smell : (0, 1) 2
+set smell : (0, 3) 3
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+20000
+20001
+00001
+33001
+33000
+
+
+
+1: 4, 2
+here
+1: 4, 0
+2: 0, 2
+3: 1, 3
+here
+3: 0, 4
+3: 0, 2
+1 : (4, 0), dir : 1
+2 : (0, 2), dir : 2
+3 : (0, 2), dir : 1
+4 : (3, 1), dir : 1
+set smell : (4, 0) 1
+set smell : (0, 2) 2
+오잉
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00001
+20001
+20000
+30001
+33000
+
+
+
+1: 4, 1
+here
+1: 4, -1
+aaaaaaaaa
+1: 4, 1
+1: 3, 0
+2: 0, 3
+smell : 3, number : 2
+bbbbbbbbbb
+2: 0, 1
+here
+2: -1, 2
+aaaaaaaaa
+2: 0, 1
+1 : (3, 0), dir : 3
+2 : (0, 1), dir : 1
+3 : (0, 2), dir : 1
+4 : (3, 1), dir : 1
+set smell : (3, 0) 1
+set smell : (0, 1) 2
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+00011
+20001
+20000
+30000
+30000
+
+
+
+1: 2, 0
+2: 0, 2
+here
+2: 0, 0
+1 : (2, 0), dir : 3
+2 : (0, 0), dir : 1
+3 : (0, 2), dir : 1
+4 : (3, 1), dir : 1
+set smell : (2, 0) 1
+set smell : (0, 0) 2
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+20111
+20001
+20000
+30000
+00000
+
+
+
+1: 1, 0
+2: 0, 1
+here
+2: 0, -1
+aaaaaaaaa
+2: -1, 0
+aaaaaaaaa
+2: 1, 0
+1 : (1, 0), dir : 3
+2 : (1, 0), dir : 4
+3 : (0, 2), dir : 1
+4 : (3, 1), dir : 1
+set smell : (1, 0) 1
+오잉
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+ 너 죽은애야 제발
+ㅇㅙ 이이거  안돼녀교
+set flase smell : (-1, -1) 0
+21111
+00000
+20000
+00000
+00000
+
+
+
+27

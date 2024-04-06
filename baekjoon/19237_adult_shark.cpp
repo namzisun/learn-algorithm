@@ -9,6 +9,7 @@ int smell_map[20][20];
 
 int result = 0;
 int shark_count;
+int left_shark_count;
 int smell_time;
 int map_size;
 
@@ -39,15 +40,31 @@ public:
 	}
 
 	void setSmell() {
-		if (smell.size() >= smell_time) {
-			// cout << "set smell : " << smell.front().first << ", " << smell.front().second << endl;
-			smell_map[smell.front().second][smell.front().first] = 0;
-			smell.pop();
+		if (live == true) {
+			if (smell.size() >= smell_time) {
+				// cout << "set smell : " << smell.front().first << ", " << smell.front().second << endl;
+				smell_map[smell.front().second][smell.front().first] = 0;
+				smell.pop();
+			}
+			smell.push(make_pair(next_x, next_y));
+			// cout << "next : " << next_x << ", " << next_y << endl;
+			smell_map[next_y][next_x] = number;
+			cout << "set smell : (" << next_x << ", " << next_y << ") " <<  smell_map[next_y][next_x] <<endl;
+		} else {
+			cout << "ㅇㅙ 이이거  안돼녀교" << endl;
+			if (smell.size() >= smell_time) {
+				// cout << "set smell : " << smell.front().first << ", " << smell.front().second << endl;
+				if (smell.front().first > -1)
+					smell_map[smell.front().second][smell.front().first] = 0;
+				smell.pop();
+			}
+			smell.push(make_pair(-1, -1));
+			cout << "set flase smell : (" << smell.back().first << ", " << smell.back().second << ") " <<  smell_map[smell.back().second][smell.back().first] <<endl;
+
+			// cout << "next : " << next_x << ", " << next_y << endl;
+			// smell_map[next_y][next_x] = number;
 		}
-		smell.push(make_pair(next_x, next_y));
-		// cout << "next : " << next_x << ", " << next_y << endl;
-		smell_map[next_y][next_x] = number;
-		cout << "set smell : (" << next_x << ", " << next_y << ") " <<  smell_map[next_y][next_x] <<endl;
+		
 	}
 
 	void setNew(int x, int y, int d) {
@@ -139,7 +156,11 @@ void bfs() {
 	}
 
 	for (int i = 1; i <= shark_count; ++i) {
-		if (!sharkArr[i].live) continue;
+		if (!sharkArr[i].live) {
+			cout << " 너 죽은애야 제발" << endl;
+			sharkArr[i].setSmell();
+			continue;
+		}
 		// 상어 번호순으로 new로 옮김. 이떄 내가 갈 자리에 상어가 있으면 죽음
 		map[sharkArr[i].now_y][sharkArr[i].now_x] = 0;
 		// cout << "now : " << sharkArr[i].now_x << ", " << sharkArr[i].now_y << endl; // 이렇게 값에는 접근이 됨
@@ -151,8 +172,10 @@ void bfs() {
 			// 이 두개가 왜 세그폴트? => 아. now를 덮어 씌웠을 때 map에 접근하는 과정에서 세그폴트 나는 듯. 그니까 setNow에는 문제가 없을 것 같은데
 			sharkArr[i].setNow();
 		} else {
+			cout << "오잉" << endl;
 			sharkArr[i].live = false;
-			shark_count--;
+			sharkArr[i].setSmell();
+			left_shark_count--;
 		}
 	}
 }
@@ -168,6 +191,7 @@ int main() {
 	// Shark sharkArr[M+1];
 
 	shark_count = M;
+	left_shark_count = M;
 	smell_time = k;
 	map_size = N;
 
@@ -207,7 +231,7 @@ int main() {
 	// 	cout << endl;
 	// }
 
-	while (shark_count > 1 && result < 1000) {
+	while (left_shark_count > 1 && result < 1000) {
 		bfs();
 		result++;
 
