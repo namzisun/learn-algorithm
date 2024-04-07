@@ -202,12 +202,12 @@ int main() {
 		sharkArr[i+1].setPriority(p);
 	}
 
-	while (left_shark_count > 1 && result < 1000) {
+	while (left_shark_count > 1 && result <= 1000) {
 		bfs();
 		result++;
 	}
 
-	if (result >= 1000 && left_shark_count >= 1) result = -1;
+	if (result > 1000) result = -1;
 
 	cout << result << '\n';
 
