@@ -63,7 +63,11 @@ public:
 		} else {
 			if (smell.size() >= smell_time) {
 				if (smell.front().first > -1)
-					smell_map[smell.front().second][smell.front().first] = 0;
+					if (smell_map_list.find(smell.front()) != smell_map_list.end()) {
+					smell_map_list.at(smell.front())--;
+					if (smell_map_list.at(smell.front()) == 0)
+						smell_map[smell.front().second][smell.front().first] = 0;
+				}
 				smell.pop();
 			}
 			smell.push(make_pair(-1, -1));
@@ -82,19 +86,23 @@ public:
 		now_y = next_y;
 		dir = next_dir;
 	}
-	// void toString() {
-	// 	cout << "number : " << number << ", (" << now_x << ", " << now_y << ")" << endl;
-	// 	for (int i = 0; i < 4; ++i) {
-	// 		for (int j = 0; j < 4; ++j) {
-	// 			cout << priority[i][j] << " ";
-	// 		}
-	// 		cout << endl;
-	// 	}
+	void toString() {
+		if (live == true)
+			cout << "number : " << number << ", (" << now_x << ", " << now_y << "), dir : " << dir << endl;
+		else
+			cout << "number : " << number << " is died" << endl;
+		// for (int i = 0; i < 4; ++i) {
+		// 	for (int j = 0; j < 4; ++j) {
+		// 		cout << priority[i][j] << " ";
+		// 	}
+		// 	cout << endl;
+		// }
 
-	// 	for (int i = 0; i < smell.size(); ++i) {
-	// 		cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
-	// 	}
-	// }
+		// for (int i = 0; i < smell.size(); ++i) {
+		// 	cout << "(" << smell.front().first << ", " << smell.front().second << ")" << endl;
+		// }
+
+	}
 };
 
 
@@ -153,6 +161,7 @@ void bfs() {
 		} else {
 			sharkArr[i].live = false;
 			sharkArr[i].setSmell();
+			cout << "!!!!! " << i << " shark is die now !!!" << endl;
 			left_shark_count--;
 		}
 	}
@@ -194,10 +203,27 @@ int main() {
 		sharkArr[i+1].setPriority(p);
 	}
 
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cout << sea[i][j] << " ";
+			} cout <<endl;
+		}cout << endl << endl;
 
+	int kkk = 1;
 	while (left_shark_count > 1 && result <= 1000) {
+				cout << endl << "========== " << kkk++ << " ============" << endl;
 		bfs();
 		result++;
+
+		for (int i = 1; i <= M; ++i) {
+			sharkArr[i].toString();
+		}
+		cout << endl;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cout << smell_map[i][j] << " ";
+			} cout <<endl;
+		}
 	}
 
 	if (result > 1000 && left_shark_count > 1) result = -1;
