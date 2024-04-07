@@ -161,7 +161,6 @@ void bfs() {
 		} else {
 			sharkArr[i].live = false;
 			sharkArr[i].setSmell();
-			cout << "!!!!! " << i << " shark is die now !!!" << endl;
 			left_shark_count--;
 		}
 	}
@@ -203,30 +202,12 @@ int main() {
 		sharkArr[i+1].setPriority(p);
 	}
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				cout << sea[i][j] << " ";
-			} cout <<endl;
-		}cout << endl << endl;
-
-	int kkk = 1;
-	while (left_shark_count > 1 && result <= 1000) {
-				cout << endl << "========== " << kkk++ << " ============" << endl;
+	while (left_shark_count > 1 && result < 1000) {
 		bfs();
 		result++;
-
-		for (int i = 1; i <= M; ++i) {
-			sharkArr[i].toString();
-		}
-		cout << endl;
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				cout << smell_map[i][j] << " ";
-			} cout <<endl;
-		}
 	}
 
-	if (result > 1000 && left_shark_count > 1) result = -1;
+	if (result >= 1000 && left_shark_count >= 1) result = -1;
 
 	cout << result << '\n';
 
