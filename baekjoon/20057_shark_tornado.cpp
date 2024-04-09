@@ -45,14 +45,12 @@ void sand() {
 		} else {
 			sand = left_sand;
 		}
-
+		cout << "sand : " << sand << endl;
 		if (isOut(r, c)) 
 			outside += sand;
 		else 
 			maps[r][c] += sand;
-
 	}
-
 }
 
 void tornado() {
@@ -64,11 +62,13 @@ void tornado() {
 		if (row < 1) row = 0;
 		if (col < 1) col = 0;
 		sand();
+		maps[row][col] = 0;
+		
 		// cout << "(" << row << ", " << col <<") : "<< maps[row][col] << endl;
 		print();
+		cout << "out : " << outside<< endl;
 		if (row == 0 && col == 0) break;
 	}
-
 	tornado_dir++;
 }
 
