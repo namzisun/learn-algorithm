@@ -35,10 +35,16 @@ public:
 		stage[r][c]--;
 		// cout << "set old " << r << ", " << c << endl;
 		r = (r + dir_r[d]*s) % N;
+		// cout << "1\n";
 		c = (c + dir_c[d]*s) % N;
+		// cout << "2\n";
+		// cout << r << ", " << c << endl;
+		while (r < 0) r += N;
+		while (c < 0) c += N;
 		stage[r][c]++;
 		// cout << "set new " << r << ", " << c << endl;
 		if (stage[r][c] > 1) moreThanOneFireball.insert(make_pair(r, c));
+
 	}
 };
 
@@ -85,14 +91,21 @@ void seperateFireball() {
 			if (even == 0 || odd == 0) {
 				D = 0;
 				for (int i = 0; i < 4; i++) {
-					Fireball f = Fireball(key.first, key.second, M, S, D+2);
+					Fireball f = Fireball(key.first, key.second, M, S, D);
+					// cout << map_key << ": " ;
 					fireballs.insert({map_key++, f});
+					
+					// f.toString();
+					D+=2;
 				}
 			} else {
 				D = 1;
 				for (int i = 0; i < 4; i++) {
-					Fireball f = Fireball(key.first, key.second, M, S, D+2);
+					Fireball f = Fireball(key.first, key.second, M, S, D);
+					// cout << map_key << ": " ;
 					fireballs.insert({map_key++, f});
+					// f.toString();
+					D+=2;
 				}
 			}
 		}
