@@ -11,8 +11,18 @@ int tornado_dir_r[4] = {0, 1, 0, -1};
 int tornado_dir_c[4] = {-1, 0, 1, 0};
 int tornado_dir = 0;
 
-int sand_dir_r[10] = {-2, -1, -1, -1, 0, 1, 1, 1, 2, 0};
-int sand_dir_c[10] = {0, -1, 0, 1, -2, -1, 0, 1, 0, -1};
+int sand_dir_r[4][10] = {
+	{-2, -1, -1, -1, 0, 1, 1, 1, 2, 0},
+	{0, 1, 0, -1, 2, 1, 0, -1, 0, 1},
+	{-2, -1, -1, -1, 0, 1, 1, 1, 2, 0},
+	{0, -1, 0, 1, -2, -1, 0, 1, 0, -1}
+};
+int sand_dir_c[4][10] = {
+	{0, -1, 0, 1, -2, -1, 0, 1, 0, -1},
+	{-2, -1, -1, -1, 0, 1, 1, 1, 2, 0},
+	{0, 1, 0, -1, 2, 1, 0, -1, 0, 1},
+	{-2, -1, -1, -1, 0, 1, 1, 1, 2, 0}
+};
 int sand_rate[10] = {2, 10, 7, 1, 5, 10, 7, 1, 2, -1};
 
 int outside = 0;
@@ -36,8 +46,8 @@ void sand() {
 	int sand;
 
 	for (int i = 0; i < 10; i++) {
-		int r = row + sand_dir_r[i];
-		int c = col + sand_dir_c[i];
+		int r = row + sand_dir_r[tornado_dir%4][i];
+		int c = col + sand_dir_c[tornado_dir%4][i];
 		
 		if (i < 9) {
 			sand = maps[row][col] * sand_rate[i] / 100;
@@ -45,7 +55,7 @@ void sand() {
 		} else {
 			sand = left_sand;
 		}
-		cout << "sand : " << sand << endl;
+		// cout << "sand : " << sand << endl;
 		if (isOut(r, c)) 
 			outside += sand;
 		else 
@@ -65,8 +75,8 @@ void tornado() {
 		maps[row][col] = 0;
 		
 		// cout << "(" << row << ", " << col <<") : "<< maps[row][col] << endl;
-		print();
-		cout << "out : " << outside<< endl;
+		// print();
+		// cout << "out : " << outside<< endl;
 		if (row == 0 && col == 0) break;
 	}
 	tornado_dir++;
@@ -90,9 +100,9 @@ int main() {
 
 	while(true) {
 		if (row == 0 && col == 0) break;
-		cout << o << ": (" << row << ", " << col << ")" << endl;
+		// cout << o << ": (" << row << ", " << col << ")" << endl;
 		tornado();
-		cout << "===========================" << endl;
+		// cout << "===========================" << endl;
 		// sand();
 	}
 
