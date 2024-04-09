@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <utility>
+#include <set>
 
 using namespace std;
 
@@ -10,6 +11,11 @@ int stage[50][50];
 int dir_r[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 int dir_c[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 
+int sumM = 0;
+int map_key = 0;
+
+set<pair<int, int> > moreThanOneFireball;
+
 class Fireball {
 public:
 	int r, c, m, d, s;
@@ -17,29 +23,82 @@ public:
 	Fireball(){}
 	
 	Fireball(int r, int c, int m, int s, int d)
-	: r(r), c(c), m(m), d(d), s(s) {}
+	: r(r), c(c), m(m), d(d), s(s) {
+		stage[r][c]++;
+	}
 
 	void toString() {
 		cout << "(" << r << ", " << c << "), m = " << m << ", s = " << s << ", d = " << d <<endl;
 	}
+
+	void setNewPosition() {
+		stage[r][c]--;
+		// cout << "set old " << r << ", " << c << endl;
+		r = (r + dir_r[d]*s) % N;
+		c = (c + dir_c[d]*s) % N;
+		stage[r][c]++;
+		// cout << "set new " << r << ", " << c << endl;
+		if (stage[r][c] > 1) moreThanOneFireball.insert(make_pair(r, c));
+	}
 };
 
-map<pair<int, int>, Fireball> fireballs;
+map<int, Fireball> fireballs;
 
-int makeRPosition(int r, int d, int s) {
-	int new_r;
-
-	new_r = (r + dir_r[d]*s) % N;
-
-	return new_r;
+void moveFireball() {
+	for (map<int, Fireball>::iterator it = fireballs.begin(); it != fireballs.end(); it++) {
+		it->second.setNewPosition();
+	}
 }
 
-int makeCPosition(int c, int d, int s) {
-	int new_c;
+void seperateFireball() {
+	set<pair<int, int> >::iterator it_s = moreThanOneFireball.begin();
+	while (it_s != moreThanOneFireball.end()) {
+		// cout << "set\n";
+		pair<int, int> key = *it_s;
+		// cout << key.first << ", " << key.second << endl;
+		int M = 0;
+		int S = 0;
+		int D;
+		int odd = 0;
+		int even = 0;
+		int count = 0;
+		for (map<int, Fireball>::iterator it = fireballs.begin(); it != fireballs.end();) {
+			// cout << "map\n";
+			if (it->second.r == key.first && it->second.c == key.second) {
+				// cout << "if when it->first == key\n";
+				M += it->second.m;
+				S += it->second.s;
+				if (it->second.d % 2 == 0) even++;
+				else odd++;
 
-	new_c = (c + dir_c[d]*s) % N;
-
-	return new_c;
+				fireballs.erase(it++);
+				stage[key.first][key.second]--;
+				count++;
+			} 
+			else it++;
+		}
+		if (count > 1) {
+			// cout << "if when count > 1\n";
+			M = M/5;
+			S = S/count;
+			if (M == 0) continue;
+			if (even == 0 || odd == 0) {
+				D = 0;
+				for (int i = 0; i < 4; i++) {
+					Fireball f = Fireball(key.first, key.second, M, S, D+2);
+					fireballs.insert({map_key++, f});
+				}
+			} else {
+				D = 1;
+				for (int i = 0; i < 4; i++) {
+					Fireball f = Fireball(key.first, key.second, M, S, D+2);
+					fireballs.insert({map_key++, f});
+				}
+			}
+		}
+		it_s++;
+	}
+	moreThanOneFireball.clear();
 }
 
 int main() {
@@ -49,18 +108,30 @@ int main() {
 	for (int i = 0; i < M; ++i) {
 		cin >> r >> c >> m >> s >> d;
 		Fireball f = Fireball(r-1, c-1, m, s, d);
-		fireballs.insert({make_pair(r-1, c-1), f});
-		stage[r-1][c-1]++;
+		fireballs.insert({map_key++, f});
+		// stage[r-1][c-1]++;
 	}
 
-	for (int i = 0; i < N; i++)
-	 {
-		for (int j = 0; j < N; j++) {
-			cout << stage[i][j] << " ";
-		}cout << 
-	 }
-	// for (map<pair<int,int>,Fireball>::iterator it = fireballs.begin(); it != fireballs.end(); it++) {
-	// 	cout << "("  << it->first.first << ", " << it->first.second << ") : ";
+	for (int i = 0; i < k; ++i) {
+		moveFireball();
+		seperateFireball();
+	}
+
+	for (map<int, Fireball>::iterator it = fireballs.begin(); it != fireballs.end(); it++) {
+		sumM += it->second.m;
+	}
+
+	cout << sumM << '\n';
+
+	// for (int i = 0; i < N; i++)
+	//  {
+	// 	for (int j = 0; j < N; j++) {
+	// 		cout << stage[i][j] << " ";
+	// 	} cout << endl;
+	//  }
+	// for (map<int,Fireball>::iterator it = fireballs.begin(); it != fireballs.end(); it++) {
+	// 	cout << "("  << it->second.r << ", " << it->second.c<< ") : ";
 	// 	it->second.toString();
-	// }
+	// }cout << endl;
+	return 0;
 }
