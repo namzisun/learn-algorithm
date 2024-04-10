@@ -10,6 +10,7 @@ int dir_r[4] = {-1, 1, 0, 0};
 int dir_c[4] = {0, 0, -1, 1};
 int stage[20][20];
 int N, M;
+int score = 0;
 
 int key =0;
 int blockgroup = 0;
@@ -209,10 +210,15 @@ void makeBlockGroup(int r, int c) {
 
 }
 
+void gravitiy() {
+	
+}
+
+
 void autoPlay() {
 	for (int r = 0; r < N; ++r) {
 		for (int c = 0; c < N; ++c) {
-			if (stage[r][c] == -1 || stage[r][c] == -2 || stage[r][c] == 0) continue;
+			if (stage[r][c] < 1) continue;
 			if (visit[r][c]) continue;
 
 			makeBlockGroup(r, c);
@@ -221,6 +227,13 @@ void autoPlay() {
 	// cout << "끝끝\n";
 	findMaxBlockGroup();
 	// maxBlockGroup[0].toString();
+
+	score += maxBlockGroup[0].size * maxBlockGroup[0].size;
+	for (vector<pair<int, int> >::iterator it = maxBlockGroup[0].vec.begin(); it != maxBlockGroup[0].vec.end(); it++) {
+		stage[it->first][it->second] = -2;
+	}
+
+	cout << score << endl;
 }
 
 int main() {
