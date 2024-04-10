@@ -89,11 +89,6 @@ public:
 map<int, BlockGroup> blockGroupMap;
 BlockGroup maxBlockGroup[2];
 
-void rotate() {
-
-}
-
-
 int findMax(int x, int max) {
 	if (max < x) return x;
 	else return max;
@@ -228,6 +223,23 @@ void gravitiy() {
 	}
 }
 
+void rotate() {
+	int sum = N-1;
+	int tmp[20][20];
+	for (int r = 0; r < N; ++r) {
+		for (int c = 0; c < N; ++c) {
+			int new_r = sum-c;
+			int new_c = r;
+			tmp[new_r][new_c] = stage[r][c];
+		}
+	}
+
+	for (int r = 0; r < N; ++r) {
+		for (int c = 0; c < N; ++c) {
+			stage[r][c] = tmp[r][c];
+		}
+	}
+}
 
 void autoPlay() {
 	for (int r = 0; r < N; ++r) {
@@ -247,20 +259,27 @@ void autoPlay() {
 		stage[it->first][it->second] = -2;
 	}
 
-	for (int i =0; i< N; i++) {
-		for (int j = 0; j < N; j++) {
-			cout << stage[i][j] << " ";
-		}cout << endl;
-	}
-	cout << endl;
-	cout << "after gravity\n";
+	// for (int i =0; i< N; i++) {
+	// 	for (int j = 0; j < N; j++) {
+	// 		cout << stage[i][j] << " ";
+	// 	}cout << endl;
+	// }
+	// cout << endl;
+	// cout << "after gravity\n";
 	gravitiy();
-
-	for (int i =0; i< N; i++) {
+	rotate();
+	cout << endl << endl;
+		for (int i =0; i< N; i++) {
 		for (int j = 0; j < N; j++) {
 			cout << stage[i][j] << " ";
 		}cout << endl;
 	}
+	gravitiy();
+	// for (int i =0; i< N; i++) {
+	// 	for (int j = 0; j < N; j++) {
+	// 		cout << stage[i][j] << " ";
+	// 	}cout << endl;
+	// }
 }
 
 int main() {
