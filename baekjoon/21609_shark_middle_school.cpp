@@ -211,7 +211,21 @@ void makeBlockGroup(int r, int c) {
 }
 
 void gravitiy() {
-	
+	for (int r = N-2; r >= 0; --r) {
+		for (int c = 0; c < N; ++c) {
+			if (stage[r][c] < 0) continue;
+			int new_r = r+1;
+			while(new_r < N) {
+				if (stage[new_r][c] != -2) break;
+				new_r++;
+			}
+			new_r--;
+			if (stage[new_r][c] == -2) {
+				stage[new_r][c] = stage[r][c];
+				stage[r][c] = -2;
+			}
+		}
+	}
 }
 
 
@@ -233,7 +247,20 @@ void autoPlay() {
 		stage[it->first][it->second] = -2;
 	}
 
-	cout << score << endl;
+	for (int i =0; i< N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << stage[i][j] << " ";
+		}cout << endl;
+	}
+	cout << endl;
+	cout << "after gravity\n";
+	gravitiy();
+
+	for (int i =0; i< N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << stage[i][j] << " ";
+		}cout << endl;
+	}
 }
 
 int main() {
