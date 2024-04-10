@@ -22,7 +22,7 @@ public:
 	vector<pair<int, int> > rainbowVec;
 	int normal = 0, rainbow = 0;
 	pair<int, int> standard;
-	int size;
+	int size = 0;
 	int row_min = 20, col_min = 20;
 
 	void pushBlock(int r, int c) {
@@ -35,6 +35,8 @@ public:
 			normalVec.push_back(make_pair(r, c));
 			normal++;
 		} else if (color == 0) {
+
+			// cout << "( " << r << ", " << c << ") rainbow\n";
 			rainbowVec.push_back(make_pair(r, c));
 			rainbow++;
 		}
@@ -103,12 +105,14 @@ bool isValid(int r, int c) {
 
 void findMaxBlockGroup() {
 	if (blockGroupMap.size() > 1) {
-		cout << "1\n";
+		// cout << "1\n";
 		int size_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
+			// cout << "size : " << it->second.size << ", max :" <<size_max <<endl;
 			size_max = findMax(it->second.size, size_max);
 		}
-cout << "2\n";
+
+// cout << "2 : " << size_max << endl;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it != blockGroupMap.end();) {
 			if (it->second.size == size_max) it++;
 			else blockGroupMap.erase(it++);
@@ -116,12 +120,12 @@ cout << "2\n";
 	}
 
 	if (blockGroupMap.size() > 1) {
-		cout << "3\n";
+		// cout << "3\n";
 		int rainbow_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			rainbow_max = findMax(it->second.rainbow, rainbow_max);
 		}
-cout << "4\n";
+// cout << "4\n";
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end();) {
 			if (it->second.rainbow == rainbow_max) it++;
 			else blockGroupMap.erase(it++);
@@ -129,12 +133,12 @@ cout << "4\n";
 	}
 
 	if (blockGroupMap.size() > 1) {
-		cout << "5\n";
+		// cout << "5\n";
 		int row_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			row_max = findMax(it->second.row_min, row_max);
 		}
-cout << "6\n";
+// cout << "6\n";
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end();) {
 			if (it->second.row_min == row_max) it++;
 			else blockGroupMap.erase(it++);
@@ -142,12 +146,12 @@ cout << "6\n";
 	}
 
 	if (blockGroupMap.size() > 1) {
-cout << "7\n";
+// cout << "7\n";
 		int col_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			col_max = findMax(it->second.col_min, col_max);
 		}
-cout << "8\n";
+// cout << "8\n";
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end();) {
 			if (it->second.col_min == col_max) it++;
 			else blockGroupMap.erase(it++);
