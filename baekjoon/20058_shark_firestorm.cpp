@@ -11,7 +11,6 @@ int L[1000];
 bool visit[64][64];
 
 int total_ice = 0;
-int max_size = 0;
 
 int dir_r[4] = {-1, 1, 0, 0};
 int dir_c[4] = {0, 0, -1, 1};
@@ -21,7 +20,7 @@ bool isValid(int r, int c) {
 	return true;
 }
 
-int maxIce(int size) {
+int maxIce(int max_size, int size) {
 	if (size > max_size) max_size = size;
 	return max_size;
 }
@@ -115,15 +114,33 @@ int bfs(int r, int c) {
 
 	int count = 1;
 
-	return 0;
+	while (q.size() > 0) {
+		int r = q.front().first;
+		int c = q.front().second;
+		q.pop();
+
+		for (int i = 0; i < 4; ++i) {
+			int new_r = r + dir_r[i];
+			int new_c = c + dir_c[i];
+
+			if (!isValid(new_r, new_c)) continue;
+			if (maps[new_r][new_c] == 0 || visit[new_r][new_c] == true) continue;
+			// cout << "(" << new_r << ", " << new_c << ")" << endl;
+			visit[new_r][new_c] = true;
+			q.push(make_pair(new_r, new_c));
+			count++;
+		}
+	}
+
+	return count;
 }
 
 int main() {
 
+	int max_size = 0;
 
 	cin >> N >> Q;
 	map_size = 1 << N;
-	map_size = pow(2, N);
 
 	for (int i = 0; i < map_size; ++i) { 
 		for (int j = 0; j < map_size; ++j) {
@@ -138,32 +155,32 @@ int main() {
 
 	for (int i = 0; i < Q; ++i) {
 		tornado(1 << L[i]);
-		for(int i = 0; i < map_size; ++i) {
-			for (int j = 0; j < map_size; ++j) {
-				cout << maps[i][j] << " ";
-			} cout << endl;
-		}
+		// for(int i = 0; i < map_size; ++i) {
+		// 	for (int j = 0; j < map_size; ++j) {
+		// 		cout << maps[i][j] << " ";
+		// 	} cout << endl;
+		// }
 		firestorm();
-		cout << "after firestorm\n";
-		for(int i = 0; i < map_size; ++i) {
-			for (int j = 0; j < map_size; ++j) {
-				cout << maps[i][j] << " ";
-			} cout << endl;
-		}
-		cout << "====================" << endl << endl;;
+		// cout << "after firestorm\n";
+		// for(int i = 0; i < map_size; ++i) {
+		// 	for (int j = 0; j < map_size; ++j) {
+		// 		cout << maps[i][j] << " ";
+		// 	} cout << endl;
+		// }
+		// cout << "====================" << endl << endl;;
 	}
 
 	for (int i = 0; i < map_size; ++i) {
 		for (int j = 0; j < map_size; ++j) {
 			if (maps[i][j] == 0) continue;
-			if (maps[i][j] == true) continue;
+			if (visit[i][j] == true) continue;
 
 			int size = bfs(i, j);
-			max_size = maxIce(size);
+			max_size = maxIce(max_size, size);
 		}
 	}
 
-	cout << total_ice << endl;
+	cout << total_ice << '\n' << max_size << '\n';
 
 	return 0;
 }
