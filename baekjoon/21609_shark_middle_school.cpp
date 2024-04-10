@@ -220,7 +220,7 @@ void autoPlay() {
 	}
 	// cout << "끝끝\n";
 	findMaxBlockGroup();
-	maxBlockGroup[0].toString();
+	// maxBlockGroup[0].toString();
 }
 
 int main() {
