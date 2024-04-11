@@ -190,7 +190,7 @@ void change() {
 			count++;
 			i++;
 		}
-		cout << "count : " << count << ", number : " << number << endl;
+		// cout << "count : " << count << ", number : " << number << endl;
 		if (tmp.size() < map_size - 1)
 			tmp.push_back(make_pair(count, make_pair(0,0)));
 		if (tmp.size() < map_size - 1)
@@ -224,12 +224,21 @@ int main() {
 
 	for (int i = 0; i < M; ++i) {
 		mapToVec();
-		// print();
+
+		// cout << "ice\n";
 		ice(magic[i].first, magic[i].second);
-		// print();
-		bomb();
-		change();
 		// vecToMap();
+		// print();
+
+		// cout << "bomb\n";
+		bomb();
+		// vecToMap();
+		// print();
+
+		// cout << "change\n";
+		change();
+		vecToMap();
+		marble.clear();
 		// print();
 		// marble.clear();
 		// mapToVec();
