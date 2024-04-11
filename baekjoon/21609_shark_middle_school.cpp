@@ -106,16 +106,16 @@ void findMaxBlockGroup() {
 				return;
 	}
 	else blockgroup = 1;
-	cout <<"blockgroup :" << blockgroup << endl;
+	// cout <<"blockgroup :" << blockgroup << endl;
 	if (blockGroupMap.size() > 1) {
-		cout << "1\n";
+		// cout << "1\n";
 		int size_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			// cout << "size : " << it->second.size << ", max :" <<size_max <<endl;
 			size_max = findMax(it->second.size, size_max);
 		}
 
-cout << "2 : " << size_max << endl;
+// cout << "2 : " << size_max << endl;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it != blockGroupMap.end();) {
 			if (it->second.size == size_max) it++;
 			else blockGroupMap.erase(it++);
@@ -123,12 +123,12 @@ cout << "2 : " << size_max << endl;
 	}
 
 	if (blockGroupMap.size() > 1) {
-		cout << "3\n";
+		// cout << "3\n";
 		int rainbow_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			rainbow_max = findMax(it->second.rainbow, rainbow_max);
 		}
-cout << "4\n";
+// cout << "4\n";
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end();) {
 			if (it->second.rainbow == rainbow_max) it++;
 			else blockGroupMap.erase(it++);
@@ -136,12 +136,12 @@ cout << "4\n";
 	}
 
 	if (blockGroupMap.size() > 1) {
-		cout << "5\n";
+		// cout << "5\n";
 		int row_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			row_max = findMax(it->second.row_min, row_max);
 		}
-cout << "6\n";
+// cout << "6\n";
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end();) {
 			if (it->second.row_min == row_max) it++;
 			else blockGroupMap.erase(it++);
@@ -149,18 +149,18 @@ cout << "6\n";
 	}
 
 	if (blockGroupMap.size() > 1) {
-cout << "7\n";
+// cout << "7\n";
 		int col_max = 0;
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end(); it++) {
 			col_max = findMax(it->second.col_min, col_max);
 		}
-cout << "8\n";
+// cout << "8\n";
 		for (map<int, BlockGroup>::iterator it = blockGroupMap.begin(); it!= blockGroupMap.end();) {
 			if (it->second.col_min == col_max) it++;
 			else blockGroupMap.erase(it++);
 		}
 	}
-	cout << "9\n";
+	// cout << "9\n";
 	maxBlockGroup[0] = blockGroupMap.begin()->second;
 	blockGroupMap.clear();
 	// cout << "끄특긑긑\n";
@@ -189,7 +189,7 @@ void makeBlockGroup(int r, int c) {
 			// cout << "new (" << new_r << ", " << new_c << ")" << endl;
 			if (!isValid(new_r, new_c)) continue;
 			// cout << "음\n";
-			if (stage[new_r][new_c] == -1 || stage[new_r][new_c] == -2) continue;
+			if (stage[new_r][new_c] < 0) continue;
 			// cout << "뭘까\n";
 			if (stage[new_r][new_c] != 0 && color != stage[new_r][new_c]) continue;
 			// cout << "why?\n";
@@ -205,7 +205,7 @@ void makeBlockGroup(int r, int c) {
 		}
 	}
 	// cout << "끝\n";
-	if (blockgroup.normal > 1) {
+	if (blockgroup.size > 1 && blockgroup.normal > 0) {
 
 		blockgroup.setStandard();
 		// blockgroup.toString();
@@ -258,49 +258,73 @@ void initVisit() {
 	}
 }
 
+void initVisitRainbow() {
+	for (int i =0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (stage[i][j] == 0)
+				visit[i][j] = false;
+		}
+	}
+}
+
 void autoPlay() {
 	initVisit();
-	cout << "11\n";
+	// cout << "11\n";
 	for (int r = 0; r < N; ++r) {
 		for (int c = 0; c < N; ++c) {
 			if (stage[r][c] < 1) continue;
 			if (visit[r][c]) continue;
 
 			makeBlockGroup(r, c);
+			initVisitRainbow();
 		}
 	}
 
-	cout << "22\n";
+	// cout << "22\n";
 	// cout << "끝끝\n";
 	findMaxBlockGroup();
 	if (blockgroup == 0) return;
 	// maxBlockGroup[0].toString();
-	cout << "33\n";
+	// cout << "33\n";
 	score += maxBlockGroup[0].size * maxBlockGroup[0].size;
-	cout << "44\n";
+	// cout << "44\n";
 	for (vector<pair<int, int> >::iterator it = maxBlockGroup[0].vec.begin(); it != maxBlockGroup[0].vec.end(); it++) {
 		stage[it->first][it->second] = -2;
 	}
-	cout<< "55\n";
+	// cout<< "55\n";
 	// for (int i =0; i< N; i++) {
 	// 	for (int j = 0; j < N; j++) {
 	// 		cout << stage[i][j] << " ";
 	// 	}cout << endl;
 	// }
 	// cout << endl;
-	// cout << "after gravity\n";
+	// cout << "gravity\n\n";
 	gravitiy();
-	cout << "66\n";
+	// cout << "66\n";
+	// for (int i =0; i< N; i++) {
+	// 	for (int j = 0; j < N; j++) {
+	// 		cout << stage[i][j] << " ";
+	// 	}cout << endl;
+	// }
+	// cout << endl;
+	// cout << "rotate\n\n";
 	rotate();
-	cout << "77\n";
+	// cout << "77\n";
+	// for (int i =0; i< N; i++) {
+	// 	for (int j = 0; j < N; j++) {
+	// 		cout << stage[i][j] << " ";
+	// 	}cout << endl;
+	// }
+	// cout << endl;
+	// cout << "gravity\n\n";
 	gravitiy();
-	cout << "88\n";
-		cout << endl << endl;
-		for (int i =0; i< N; i++) {
-		for (int j = 0; j < N; j++) {
-			cout << stage[i][j] << " ";
-		}cout << endl;
-	}
+	// cout << "88\n";
+	// cout << endl << endl;
+	// 	for (int i =0; i< N; i++) {
+	// 	for (int j = 0; j < N; j++) {
+	// 		cout << stage[i][j] << " ";
+	// 	}cout << endl;
+	// }cout << "================\n";
 	// for (int i =0; i< N; i++) {
 	// 	for (int j = 0; j < N; j++) {
 	// 		cout << stage[i][j] << " ";
