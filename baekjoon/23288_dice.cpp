@@ -27,12 +27,12 @@ int diceArr[6][4] = {
 };
 
 bool isValid(int r, int c) {
-	if (r < 0 || c < 0 || N <= r || M <= c) return true;
-	return false;
+	if (r < 0 || c < 0 || N <= r || M <= c) return false;
+	return true;
 }
 
-int setDice(int dir) {
-	return diceArr[dice-1][dir];
+int setDice() {
+	return diceArr[dice-1][d];
 }
 
 void initVisit() {
@@ -48,13 +48,13 @@ void setDir() {
 	else if (dice < maps[r][c]) d--;
 }
 
-int countScore(int r, int c) {
+int countScore() {
 	queue<pair<int, int> > q;
 	q.push(make_pair(r, c));
 	visit[r][c] = true;
 
 	int number = maps[r][c];
-	int count = 0;
+	int count = 1;
 
 	while (!q.empty()) {
 		// cout << "hehe\n";
@@ -83,24 +83,26 @@ void move_dice() {
 	int new_r, new_c, new_d = d;
 	for (int i = 0; i < 2; i++) {
 		new_d %= 4;
-			cout << "d :" << new_d << endl;
+			// cout << "d :" << new_d << endl;
 
 		new_r = r + dir_r[new_d];
 		new_c = c + dir_c[new_d];
+	// cout << "new_d : " << new_d << endl;
+	// cout << "new_r : " << new_r << endl;
+	// cout << "new_c : " << new_c << endl; 
 		if (isValid(new_r, new_c)) break;
 		new_d+=2;
 	}
-	cout << "new_d : " << new_d << endl;
 	r = new_r;
 	c = new_c;
 	d = new_d;
 
-	cout << "1\n";
-	dice = setDice(d);
-	score += countScore(r, c);
-	cout << "2\n";
-	cout << "d :" << d << endl;
-	cout << "3\n";
+	// cout << "1\n";
+	// dice = setDice(d);
+	// score += countScore(r, c);
+	// cout << "2\n";
+	// cout << "d :" << d << endl;
+	// cout << "3\n";
 }
 
 
@@ -114,10 +116,26 @@ int main() {
 
 	for (int i = 0; i < K; ++i) {
 		initVisit();
+		// cout << "r : " << r << endl;
+		// cout << "c : " << c << endl;
+		// cout << "d : " << d << endl;
+
 		move_dice();
-		cout << "d : " << d << endl;
+		// cout << "r : " << r << endl;
+		// cout << "c : " << c << endl;
+		// cout << "d : " << d << endl;
+
+		score += countScore();
+		// cout << "r : " << r << endl;
+		// cout << "c : " << c << endl;
+		// cout << "d : " << d << endl;
+
+		setDice();
+		// cout << "r : " << r << endl;
+		// cout << "c : " << c << endl;
+		// cout << "d : " << d << endl;
 		setDir();
-		cout << "4\n";
+		// cout << "4\n";
 		
 	}
 
