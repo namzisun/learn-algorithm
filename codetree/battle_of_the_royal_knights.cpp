@@ -3,7 +3,8 @@
 
 using namespace std;
 
-int chess[40][40];
+int chess[41][41];
+int chessKignht[41][41];
 int L, N, Q;
 
 int dr[4] = {-1, 0, 1, 0};
@@ -15,43 +16,59 @@ struct King {
 
 class Knight{
 public :
-	int r, c, h, w, k;
+	int number, r, c, h, w, k;
 
 	Knight() {}
-	Knight(int r, int c, int h, int w, int k)
-	: r(r), c(c), h(h), w(w), k(k) {}
+	Knight(int n, int r, int c, int h, int w, int k)
+	: number(n), r(r), c(c), h(h), w(w), k(k) {
+		setRectangle();
+	}
 
 	void setNew(int r, int c) {
 		this->r = r;
 		this->c = c;
 	}
+
+	void setRectangle() {
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				chessKignht[r+i][c+j] = number;
+			}
+ 		}
+	}
 };
 
-Knight knights[30];
-King king[100];
+Knight knights[31];
+King king[101];
 
 int main() {
 	cin >> L >> N >> Q;
 
-	for (int i =0; i < L: i++) {
-		for (int j = 0; j < L; j++) {
-			cin >> L[i][j];
+	for (int i =1; i <= L; i++) {
+		for (int j = 1; j <= L; j++) {
+			cin >> chess[i][j];
 		}
 	}
 
-	for (int i =0; i < N; i++) {
+	for (int i =1; i < N+1; i++) {
 		int r, c, h, w, k;
 		cin >> r >> c>> h >> w>> k;
-		Knight kn = Knight(r, c, h, w, k);
+		Knight kn = Knight(i, r, c, h, w, k);
 		knights[i] = kn;
 	}
 
-	for (int i = 0; i < Q; i++) {
+	for (int k = 0; k < Q; k++) {
 		int i, d;
 		cin >> i >> d;
-		King q = {i-1, d};
+		King q = {i, d};
 		king[i] = q;
 	}
+
+	// for (int i =1; i <= L; i++) {
+	// 	for (int j = 1; j <= L; j++) {
+	// 		cout << chessKignht[i][j] << " ";
+	// 	}cout << endl;
+	// }
 
 	return 0;
 }
